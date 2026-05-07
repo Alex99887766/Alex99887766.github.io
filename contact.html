@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакти - InterContinental London</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">InterContinental</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Головна</a></li>
+                <li><a href="about_us.html">Про нас</a></li>
+                <li><a href="contact.html" class="active">Контакти</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="Меню">☰</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <h1>Контакти</h1>
+        </section>
+
+        <section class="contact-section">
+            <div class="contact-info">
+                <h2>Зв'яжіться з нами</h2>
+                
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <div>
+                        <strong>Адреса:</strong>
+                        <p>1 Waterview Drive, Greenwich Peninsula, London SE10 0TW, UK</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <div>
+                        <strong>Телефон:</strong>
+                        <p><a href="tel:+442084636868">+44 20 8463 6868</a></p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-icon">✉️</span>
+                    <div>
+                        <strong>Email:</strong>
+                        <p><a href="mailto:info@iclondon-theo2.com">info@iclondon-theo2.com</a></p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-icon">🕐</span>
+                    <div>
+                        <strong>Ресепшн:</strong>
+                        <p>Цілодобово, 24/7</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-container">
+                <h2>Напишіть нам</h2>
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <label for="contact-name">Ім'я:</label>
+                        <input type="text" id="contact-name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">Email:</label>
+                        <input type="email" id="contact-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Тема:</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Повідомлення:</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Надіслати</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="map-section">
+            <h2>Як нас знайти</h2>
+            <div class="map-container">
+                <iframe 
+                    src="[google.com](https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2484.5!2d0.0033!3d51.5025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sInterContinental%20London%20-%20The%20O2!5e0!3m2!1sen!2suk!4v1)"
+                    width="100%" 
+                    height="400" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; Тестовий проєкт, сайт не має ніякого відношення до InterContinental London - The O2.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
