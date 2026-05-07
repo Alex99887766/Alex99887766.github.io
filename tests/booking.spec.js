@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 test('Користувач може успішно забронювати номер', async ({ page }) => {
     // 1. Зайти на сайт
-    await page.goto('https://alex99887766.github.io/contact.html'); // Або інша адреса твого дев-сервера
+    await page.goto('http://localhost:4173/'); // Або інша адреса твого дев-сервера
 
     // 2. Відкрити вікно бронювання
     await page.click('.btn-book[data-room="deluxe"]');
