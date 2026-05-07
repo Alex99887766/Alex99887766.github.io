@@ -1,3 +1,5 @@
+import { calculateBookingPrice, calculateNights } from './booking.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     // Мобільне меню
     const menuToggle = document.querySelector('.menu-toggle');
@@ -67,10 +69,25 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
+
+            // --- НОВА ЛОГІКА ДЛЯ ЛАБИ №2 ---
+            // 1. Рахуємо кількість ночей
+            const nights = calculateNights(data['check-in'], data['check-out']);
             
-            console.log('Бронювання:', data);
+            // 2. Рахуємо фінальну ціну
+            // (припускаємо, що у формі є поле 'breakfast' та 'room-type')
+            const hasBreakfast = formData.has('breakfast'); 
+            const totalPrice = calculateBookingPrice(nights, data['room-type'], hasBreakfast);
             
-            alert('Дякуємо за бронювання! Ми зв\'яжемося з вами найближчим часом.');
+            // Додаємо ціну до даних, які йдуть у "бекленд" (консоль)
+            data.totalPrice = totalPrice;
+            data.nightsCount = nights;
+
+            console.log('Бронювання з розрахунком:', data);
+            
+            alert(`Дякуємо! Вартість проживання (${nights} ноч.): ${totalPrice}$. Ми зв'яжемося з вами.`);
+            // --------------------------------
+            
             modal.classList.remove('active');
             this.reset();
         });
