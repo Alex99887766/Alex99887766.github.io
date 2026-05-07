@@ -1,34 +1,31 @@
-/**
- * Розрахунок вартості проживання
- * @param {number} nights - Кількість ночей
- * @param {string} roomType - Тип номера
- * @param {boolean} hasBreakfast - Чи включений сніданок
- * @returns {number} - Загальна сума
- */
+export function getSeasonMultiplier() {
+    return 1;
+}
+
 export function calculateBookingPrice(nights, roomType, hasBreakfast) {
     if (nights <= 0) return 0;
 
-    let pricePerNight = 100; // Базова ціна для standard
+    let pricePerNight = 100;
     if (roomType === 'deluxe') pricePerNight = 150;
     
     if (hasBreakfast) pricePerNight += 20;
 
-    let total = nights * pricePerNight;
+    // Використовуємо залежність, яку можна замокати
+    const multiplier = exports.getSeasonMultiplier(); 
+    
+    let total = nights * pricePerNight * multiplier;
 
-    // Знижка за тривале перебування (від 7 ночей)
     if (nights >= 7) {
-        total *= 0.9; // 10% знижки
+        total *= 0.9;
     }
 
     return Math.round(total);
 }
 
-/* Розрахунок кількості ночей між двома датами */
-export function calculateNights(checkIn, checkOut) {
-    if (!checkIn || !checkOut) return 0;
-    const start = new Date(checkIn);
-    const end = new Date(checkOut);
-    const diff = end - start;
-    const nights = diff / (1000 * 60 * 60 * 24);
-    return nights > 0 ? nights : 0;
+// Додаткова функція для розрахунку ночей
+export function calculateNights(start, end) {
+    const d1 = new Date(start);
+    const d2 = new Date(end);
+    const diff = d2 - d1;
+    return Math.max(0, diff / (1000 * 60 * 60 * 24));
 }
