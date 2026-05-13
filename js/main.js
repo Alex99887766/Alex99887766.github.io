@@ -1,4 +1,4 @@
-import { calculateBookingPrice, calculateNights } from './booking.js';
+import { bookingLogic } from './booking.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     const appMode = import.meta?.env?.VITE_APP_STATUS || 'Development (local)';
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = Object.fromEntries(formData);
 
             // 1. Розрахунок кількості ночей
-            const nights = calculateNights(data['check-in'], data['check-out']);
+            const nights = bookingLogic.calculateNights(data['check-in'], data['check-out']);
             const guests = parseInt(data['guests']) || 0;
             // Валідація
             if (nights <= 0 || guests <= 0) {
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 hasBreakfast: formData.has('breakfast'),
                 promoCode: data['promo-code']
             };
-            const totalPrice = calculateBookingPrice(nights, data['room-type'], guests, options);
+            const totalPrice = bookingLogic.calculateBookingPrice(nights, data['room-type'], guests, options);
             
             // Оновлюємо об'єкт даних для консолі
             data.totalPrice = totalPrice;
