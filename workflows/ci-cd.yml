@@ -1,0 +1,32 @@
+name: CI/CD Pipeline for InterContinental
+
+on:
+  push:
+    [cite_start]branches: [ main, develop ] # Запуск при завантаженні коду
+  pull_request:
+    [cite_start]branches: [ main ] # Запуск при створенні запиту на злиття
+
+jobs:
+  build-and-test:
+    [cite_start]runs-on: ubuntu-latest # Використання стандартного образу Linux
+
+    steps:
+      - name: Checkout repository
+        [cite_start]uses: actions/checkout@v4 # Отримання коду
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          [cite_start]node-version: 20 # Налаштування оточення
+
+      - name: Install dependencies
+        [cite_start]run: npm ci # Чисте встановлення бібліотек
+
+      - name: Run linter
+        [cite_start]run: npm run lint # Перевірка якості коду
+
+      - name: Run unit tests
+        [cite_start]run: npm run test:unit # Запуск тестів
+
+      - name: Build project
+        [cite_start]run: npm run build # Створення артефактів
