@@ -1,6 +1,11 @@
 import { calculateBookingPrice, calculateNights } from './booking.js';
 
 document.addEventListener('DOMContentLoaded', function() {
+    const appModeElement = document.getElementById('app-mode');
+    if (appModeElement) {
+        appModeElement.textContent = import.meta.env.VITE_APP_STATUS || 'Unknown';
+    }
+    
     // Мобільне меню
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
@@ -61,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Форма бронювання
+        // Форма бронювання
     const bookingForm = document.getElementById('booking-form');
     if (bookingForm) {
         bookingForm.addEventListener('submit', function(e) {
@@ -70,23 +75,27 @@ document.addEventListener('DOMContentLoaded', function() {
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
 
-            // --- НОВА ЛОГІКА ДЛЯ ЛАБИ №2 ---
-            // 1. Рахуємо кількість ночей
+            // 1. Розрахунок кількості ночей
             const nights = calculateNights(data['check-in'], data['check-out']);
             
-            // 2. Рахуємо фінальну ціну
-            // (припускаємо, що у формі є поле 'breakfast' та 'room-type')
-            const hasBreakfast = formData.has('breakfast'); 
-            const totalPrice = calculateBookingPrice(nights, data['room-type'], hasBreakfast);
+            // 2. Отримання нових даних: гості та промокод
+            const guests = parseInt(data['guests']) || 1;
+            const options = {
+                hasBreakfast: formData.has('breakfast'),
+                promoCode: data['promo-code']
+            };
+
+            // 3. Виклик оновленої функції розрахунку
+            const totalPrice = calculateBookingPrice(nights, data['room-type'], guests, options);
             
-            // Додаємо ціну до даних, які йдуть у "бекленд" (консоль)
+            // Оновлюємо об'єкт даних для консолі
             data.totalPrice = totalPrice;
             data.nightsCount = nights;
+            data.guestsCount = guests;
 
-            console.log('Бронювання з розрахунком:', data);
+            console.log('Бронювання з розширеним розрахунком:', data);
             
-            alert(`Дякуємо! Вартість проживання (${nights} ноч.): ${totalPrice}$. Ми зв'яжемося з вами.`);
-            // --------------------------------
+            alert(`Дякуємо! Вартість проживання (${nights} ноч., ${guests} гост.): ${totalPrice}$. Ми зв'яжемося з вами.`);
             
             modal.classList.remove('active');
             this.reset();

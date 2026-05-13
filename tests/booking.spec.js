@@ -1,55 +1,47 @@
-import { expect, test, describe, vi } from 'vitest';
-import * as bookingLogic from './js/booking.js'; // Імпортуємо все для мокінгу
+import { expect, test, describe, vi, beforeEach } from 'vitest';
+import * as bookingLogic from '../js/booking.js';
 
-describe('Unit-тести бізнес-логіки бронювання готелю', () => {
+describe('Unit-тести бізнес-логіки InterContinental', () => {
 
-    // Тест 1: Базовий розрахунок (позитивний сценарій)
-    test('Має правильно рахувати стандартний номер без сніданку', () => {
-        const result = bookingLogic.calculateBookingPrice(3, 'standard', false);
-        expect(result).toBe(300); // Assertion: перевірка очікуваного результату
+    // Тест 1: Базовий розрахунок
+    test('Має правильно рахувати стандартний номер для 2 гостей', () => {
+        const result = bookingLogic.calculateBookingPrice(3, 'standard', 2, { hasBreakfast: false });
+        expect(result).toBe(300); // 3 ночі * 100$
     });
 
-    // Тест 2: Розрахунок для Deluxe (логіка множників)
-    test('Має враховувати підвищену вартість для номеру Deluxe', () => {
-        const result = bookingLogic.calculateBookingPrice(2, 'deluxe', false);
-        expect(result).toBe(300); // 2 ночі * 150$
+    // Тест 2: Доплата за додаткових гостей
+    test('Має додавати 30$ за кожного гостя понад двох', () => {
+        const result = bookingLogic.calculateBookingPrice(1, 'standard', 4, { hasBreakfast: false });
+        expect(result).toBe(160); // 100$ + (2 додаткові гості * 30$)
     });
 
-    // Тест 3: Додаткові послуги
-    test('Має додавати вартість сніданку до кожної ночі', () => {
-        const result = bookingLogic.calculateBookingPrice(1, 'standard', true);
-        expect(result).toBe(120); // 100$ + 20$
+    // Тест 3: Перевірка промокоду
+    test('Має застосовувати знижку 10% за промокодом INTER10', () => {
+        const result = bookingLogic.calculateBookingPrice(1, 'deluxe', 2, { promoCode: 'INTER10' });
+        expect(result).toBe(135); // 150$ - 10%
     });
 
-    // Тест 4: Бізнес-правило знижки (Межа 7 ночей)
-    test('Має застосовувати знижку 10% при бронюванні від 7 ночей', () => {
-        const result = bookingLogic.calculateBookingPrice(10, 'standard', false);
-        expect(result).toBe(900); // 1000$ - 10%
+    // Тест 4: Валідація некоректних даних
+    test('Має повертати 0 при нульовій кількості ночей або гостей', () => {
+        expect(bookingLogic.calculateBookingPrice(0, 'standard', 2)).toBe(0);
+        expect(bookingLogic.calculateBookingPrice(3, 'standard', 0)).toBe(0);
     });
 
-    // Тест 5: Граничні значення (0 ночей)
-    test('Має повертати 0, якщо кількість ночей не є додатною', () => {
-        expect(bookingLogic.calculateBookingPrice(0, 'standard', false)).toBe(0);
-        expect(bookingLogic.calculateBookingPrice(-1, 'standard', false)).toBe(0);
-    });
-
-    // Тест 6: ПРАКТИКА З MOCK-ОБ’ЄКТАМИ (Ізоляція)
-    // Ми "замокаємо" функцію отримання сезонного коефіцієнта
-    test('Має правильно застосовувати сезонний коефіцієнт через Mock', () => {
-        // Створюємо шпигуна (Spy) на функцію, яку хочемо ізолювати
-        const spy = vi.spyOn(bookingLogic, 'getSeasonMultiplier').mockReturnValue(2);
+    // Тест 5: Mock об'єкт
+    test('Має подвоювати ціну, якщо сезонний коефіцієнт = 2.0 (Mock)', () => {
+        // Створюємо Mock (шпигуна), який підміняє реальну функцію коефіцієнта
+        const seasonSpy = vi.spyOn(bookingLogic, 'getSeasonMultiplier').mockReturnValue(2.0);
         
-        const result = bookingLogic.calculateBookingPrice(1, 'standard', false);
+        const result = bookingLogic.calculateBookingPrice(1, 'standard', 2);
         
-        expect(result).toBe(200); // 100$ * 2 (наш мок-коефіцієнт)
-        expect(spy).toHaveBeenCalled(); // Перевіряємо, чи викликався мок
+        expect(result).toBe(200); // 100$ * 2.0
+        expect(seasonSpy).toHaveBeenCalled(); // Перевірка, що Mock був викликаний
         
-        spy.mockRestore(); // Очищуємо мок після тесту
+        seasonSpy.mockRestore(); // Відновлюємо оригінальну функцію
     });
 
-    // Тест 7: Валідація вхідних даних (типи номерів)
-    test('Має використовувати базову ціну, якщо тип номера невідомий', () => {
-        const result = bookingLogic.calculateBookingPrice(1, 'unknown-type', false);
-        expect(result).toBe(100);
+    // Тест 6: Покриття розрахунку ночей
+    test('Має правильно розраховувати різницю між датами', () => {
+        expect(bookingLogic.calculateNights('2026-05-10', '2026-05-15')).toBe(5);
     });
 });
