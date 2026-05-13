@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // 1. Розрахунок кількості ночей
             const nights = calculateNights(data['check-in'], data['check-out']);
-            
+            const guests = parseInt(data['guests']) || 0;
             // 2. Отримання нових даних: гості та промокод
             const guests = parseInt(data['guests']) || 1;
             const options = {
