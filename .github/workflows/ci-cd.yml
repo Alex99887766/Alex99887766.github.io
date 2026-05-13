@@ -1,10 +1,10 @@
-name: CI/CD Pipeline for InterContinental
+name: CI/CD Pipeline
 
 on:
   push:
-    [cite_start]branches: [ main, develop ] # Запуск при завантаженні коду
+    branches: [ main, develop ]
   pull_request:
-    [cite_start]branches: [ main ] # Запуск при створенні запиту на злиття
+    branches: [ main ]
 
 jobs:
   build-and-test:
