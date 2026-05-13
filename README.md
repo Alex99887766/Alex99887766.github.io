@@ -27,5 +27,3 @@ Quality Gate: ESLint.
     npm run test:e2e       # Наскрізні тести
 
 **Посилання на сайт - alex99887766.github.io/**
-
-12345
