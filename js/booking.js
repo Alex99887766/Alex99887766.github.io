@@ -1,3 +1,7 @@
+// Константи
+const EXTRA_GUEST_FEE = 30;
+const BASE_GUESTS_COUNT = 2;
+const BREAKFAST_FEE = 20;
 // Коефіцієнти для різних типів номерів
 export const ROOM_RATES = {
     standard: 100,
