@@ -19,12 +19,13 @@ export function calculateBookingPrice(nights, roomType, guests, options = {}) {
 
     let pricePerNight = ROOM_RATES[roomType] || ROOM_RATES.standard;
     
-    // Доплата за гостей (30$ за кожного після другого)
-    if (guests > 2) {
-        pricePerNight += (guests - 2) * 30;
+    // Доплата за гостей
+    if (guests > BASE_GUESTS_COUNT) {
+        pricePerNight += (guests - BASE_GUESTS_COUNT) * EXTRA_GUEST_FEE;
     }
-
-    if (options.hasBreakfast) pricePerNight += 20;
+    
+     if (options.hasBreakfast) pricePerNight += BREAKFAST_FEE;
+     
 
     const multiplier = getSeasonMultiplier(); 
     
