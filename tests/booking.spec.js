@@ -1,5 +1,5 @@
-import { expect, test, describe, vi, beforeEach } from 'vitest';
-import * as bookingLogic from '../js/booking.js';
+import { bookingLogic } from '../js/booking.js'; 
+import { expect, test, describe, vi } from 'vitest';
 
 describe('Unit-тести бізнес-логіки InterContinental', () => {
 

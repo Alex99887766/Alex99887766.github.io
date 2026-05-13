@@ -1,3 +1,5 @@
+[![.github/workflows/ci-cd.yml](https://github.com/Alex99887766/Alex99887766.github.io/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Alex99887766/Alex99887766.github.io/actions/workflows/ci-cd.yml)
+
 # Alex99887766.github.io
 Управління ІТ-проєктами
 
