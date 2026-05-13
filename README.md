@@ -1,30 +1,29 @@
 # Alex99887766.github.io
 Управління ІТ-проєктами
 
-Вебсайт-візитка для готелю "InterContinental London - The O2".
+# InterContinental London - The O2 Booking System
 
-Сайт дозволить користувачам ознайомитись із загальною інформацією про готель, глянути на номери, подивитись контактну інформацію та прочитати інформацію про компанію.
+# Стек технологій
+Frontend: HTML5, CSS3 (Flexbox/Grid), JavaScript.
+Build Tool: Vite.
+Testing: Vitest.
+Playwright.
+Quality Gate: ESLint.
 
+# Інструкція з розгортання
 
-Посилання на сайт - alex99887766.github.io/
+1. Клонування репозиторію:
+   ```bash
+   git clone [https://github.com/Alex99887766/Alex99887766.github.io.git](https://github.com/Alex99887766/Alex99887766.github.io.git)
 
-Стек технологій:
+2. Встановлення залежностей:
+    npm install
 
-HTML5 - структура сторінок.
+3. Запуск в режимі розробки:
+    npm run dev
 
-CSS3 - стилізація та адаптивний дизайн.
+4. Запуск тестів:
+    npm run test:unit      # Модульні тести
+    npm run test:e2e       # Наскрізні тести
 
-JavaScript - інтерактивні елементи.
-
-GitHub Pages - хостинг проєкту.
-
-
-Функціонал:
-
-Головна сторінка.
-
-Сторінка "Про нас'. (About_us.html)
-
-Сторінка "Контакти". (Contact.html)
-
-Бронювання номерів через окремий віджет.
+**Посилання на сайт - alex99887766.github.io/**
