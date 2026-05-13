@@ -1,9 +1,11 @@
 import { calculateBookingPrice, calculateNights } from './booking.js';
 
 document.addEventListener('DOMContentLoaded', function() {
+    const appMode = import.meta?.env?.VITE_APP_STATUS || 'Development (local)';
+
     const appModeElement = document.getElementById('app-mode');
     if (appModeElement) {
-        appModeElement.textContent = import.meta.env.VITE_APP_STATUS || 'Unknown';
+        appModeElement.textContent = appMode;
     }
     
     // Мобільне меню
