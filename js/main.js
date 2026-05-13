@@ -78,14 +78,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // 1. Розрахунок кількості ночей
             const nights = calculateNights(data['check-in'], data['check-out']);
             const guests = parseInt(data['guests']) || 0;
-            // 2. Отримання нових даних: гості та промокод
-            const guests = parseInt(data['guests']) || 1;
+            // Валідація
+            if (nights <= 0 || guests <= 0) {
+                alert('Будь ласка, заповніть коректні дати та кількість гостей.');
+                return;
+            }
+            
+            // 2. Підрахунок фінальної ціни
             const options = {
                 hasBreakfast: formData.has('breakfast'),
                 promoCode: data['promo-code']
             };
-
-            // 3. Виклик оновленої функції розрахунку
             const totalPrice = calculateBookingPrice(nights, data['room-type'], guests, options);
             
             // Оновлюємо об'єкт даних для консолі
