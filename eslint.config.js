@@ -1,6 +1,16 @@
 import js from '@eslint/js';
 
 export default [
+        {
+        ignores: [
+            'dist/**', 
+            'node_modules/**', 
+            'vite.config.js', 
+            'playwright-report/**', 
+            'test-results/**',
+            'coverage/**'
+        ]
+    },
     js.configs.recommended,
     {
         languageOptions: {
@@ -24,8 +34,5 @@ export default [
             'semi': ['error', 'always'],
             'quotes': ['error', 'single']
         }
-    },
-    {
-        ignores: ['dist/**', 'node_modules/**', 'vite.config.js', 'playwright-report/**"', 'test-results/**']
     }
 ];
