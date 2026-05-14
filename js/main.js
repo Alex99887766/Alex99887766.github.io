@@ -8,11 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (statusElement) {
         statusElement.textContent = currentStatus;
     }
-
-    const appModeElement = document.getElementById('app-mode');
-    if (appModeElement) {
-        appModeElement.textContent = appMode;
-    }
     
     // Мобільне меню
     const menuToggle = document.querySelector('.menu-toggle');
