@@ -9,7 +9,7 @@ export const ROOM_RATES = {
     suite: 300
 };
 
-// Створюємо об'єкт для експорту логіки
+// Об'єкт для експорту логіки
 export const bookingLogic = {
     getSeasonMultiplier() {
         return 1.0; 

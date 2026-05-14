@@ -329,6 +329,7 @@ img {
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 1rem;
+    box-sizing: border-box;
 }
 
 .form-group input:focus,
@@ -376,10 +377,13 @@ img {
 
 .modal-content {
     background: var(--white);
-    padding: 2rem;
+    margin: 5% auto;
+    padding: 20px;
     border-radius: 8px;
     max-width: 500px;
     width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
     position: relative;
 }
 
