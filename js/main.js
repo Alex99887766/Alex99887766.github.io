@@ -1,7 +1,13 @@
 import { bookingLogic } from './booking.js';
 
 document.addEventListener('DOMContentLoaded', function() {
-    const appMode = import.meta?.env?.VITE_APP_STATUS || 'Development (local)';
+
+    const currentStatus = import.meta.env.VITE_APP_STATUS || 'Development (local)';
+    const statusElement = document.getElementById('VITE_APP_STATUS');
+
+    if (statusElement) {
+        statusElement.textContent = currentStatus;
+    }
 
     const appModeElement = document.getElementById('app-mode');
     if (appModeElement) {
