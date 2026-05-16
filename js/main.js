@@ -1,4 +1,11 @@
 import { bookingLogic } from './booking.js';
+import posthog from 'posthog-js';
+
+posthog.init('phc_vUev2oheY3mkhF5EsEPeCPLajy49QP8FWzTxxGWSY6M6', {
+    api_host: `${window.location.origin}/ingest`,
+    ui_host: 'https://us.i.posthog.com',
+    person_profiles: 'identified_only'
+});
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -28,6 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Відкриття вікна
     bookButtons.forEach(button => {
         button.addEventListener('click', function() {
+            posthog.capture('booking_started', {
+                source_button: 'rooms_section',
+                room_type_selected: this.dataset.room
+            });
             const roomType = this.dataset.room;
             if (roomTypeSelect) {
                 roomTypeSelect.value = roomType;
@@ -101,6 +112,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
             console.log('Бронювання з розширеним розрахунком:', data);
             
+            posthog.capture('booking_completed', {
+                room_type: data['room-type'], 
+                guests_count: guests,
+                nights_count: nights,
+                total_price: totalPrice,
+                has_breakfast: formData.has('breakfast'),
+                is_authenticated: false
+            });
+
             alert(`Дякуємо! Вартість проживання (${nights} ноч., ${guests} гост.): ${totalPrice}$. Ми зв'яжемося з вами.`);
             
             modal.classList.remove('active');
@@ -136,5 +156,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         });
+    });
+    posthog.onFeatureFlags(() => {
+        if (posthog.isFeatureEnabled('show-urgent-filter')) {
+            const urgentBtn = document.getElementById('urgent-btn');
+            if (urgentBtn) {
+                urgentBtn.style.display = 'inline-block';
+            }
+        }
     });
 });

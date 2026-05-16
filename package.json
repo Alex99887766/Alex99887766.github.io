@@ -32,5 +32,8 @@
     "eslint": "^10.3.0",
     "playwright": "^1.59.1",
     "vitest": "^4.1.5"
+  },
+  "dependencies": {
+    "posthog-js": "^1.373.5"
   }
 }
