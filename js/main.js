@@ -1,5 +1,19 @@
 import { bookingLogic } from './booking.js';
 import posthog from 'posthog-js';
+import * as Sentry from '@sentry/browser';
+
+Sentry.init({
+    dsn: 'https://6b1aafeadd495416e4d0e518c117f411@o4511403875696640.ingest.de.sentry.io/4511403882512464', 
+    
+    integrations: [
+        Sentry.browserTracingIntegration(),
+        Sentry.replayIntegration(),
+    ],
+    
+    tracesSampleRate: 1.0, 
+    
+    environment: 'production', // Production на релізі, development при тестуванні
+});
 
 posthog.init('phc_vUev2oheY3mkhF5EsEPeCPLajy49QP8FWzTxxGWSY6M6', {
     api_host: `${window.location.origin}/ingest`,
@@ -25,6 +39,24 @@ document.addEventListener('DOMContentLoaded', function() {
             navLinks.classList.toggle('active');
         });
     }
+
+    const breakBtn = document.getElementById('break-btn');
+        if (breakBtn) {
+            breakBtn.addEventListener('click', function() {
+                const posthogDistinctId = posthog.get_distinct_id();
+                
+                console.log('Передаємо в Sentry цей ID:', posthogDistinctId);
+
+                Sentry.setUser({
+                    id: posthogDistinctId,
+                    username: `Гість (${posthogDistinctId ? posthogDistinctId.substring(0, 6) : 'unknown'})`
+                });
+
+                Sentry.setTag('user.segment', 'guest_landing');
+
+                throw new Error('Sentry Test Error: Помилка');
+            });
+        }
 
     // Модальне вікно бронювання
     const modal = document.getElementById('booking-modal');
