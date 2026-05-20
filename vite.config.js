@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
@@ -5,7 +6,7 @@ export default defineConfig({
   test: {
     exclude: ['**/node_modules/**', '**/tests/*.e2e.test.js'],
   },
-  
+
   // Сервер та проксі
   server: {
     proxy: {
@@ -16,4 +17,13 @@ export default defineConfig({
       },
     },
   },
+
+  build: {
+    sourcemap: true
+  },
+
+  plugins: [sentryVitePlugin({
+    org: "oleksii-4v",
+    project: "javascript"
+  })]
 });
