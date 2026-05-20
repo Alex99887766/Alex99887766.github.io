@@ -1,9 +1,9 @@
 import { bookingLogic } from './booking.js';
 import posthog from 'posthog-js';
-import * as Sentry from "@sentry/browser";
+import * as Sentry from '@sentry/browser';
 
 Sentry.init({
-    dsn: "https://6b1aafeadd495416e4d0e518c117f411@o4511403875696640.ingest.de.sentry.io/4511403882512464", 
+    dsn: 'https://6b1aafeadd495416e4d0e518c117f411@o4511403875696640.ingest.de.sentry.io/4511403882512464', 
     
     integrations: [
         Sentry.browserTracingIntegration(),
@@ -12,7 +12,7 @@ Sentry.init({
     
     tracesSampleRate: 1.0, 
     
-    environment: "production", // Production на релізі, development при тестуванні
+    environment: 'production', // Production на релізі, development при тестуванні
 });
 
 posthog.init('phc_vUev2oheY3mkhF5EsEPeCPLajy49QP8FWzTxxGWSY6M6', {
