@@ -24,6 +24,7 @@ export default defineConfig({
 
   plugins: [sentryVitePlugin({
     org: "oleksii-4v",
-    project: "javascript"
+    project: "javascript",
+    authToken: process.env.SENTRY_AUTH_TOKEN
   })]
 });
