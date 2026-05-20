@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/test-proxy",
+      "destination": "https://google.com",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/ingest/static/:path*",
@@ -7,6 +14,10 @@
     {
       "source": "/ingest/:path*",
       "destination": "https://us.i.posthog.com/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
